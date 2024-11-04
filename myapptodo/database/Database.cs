@@ -27,12 +27,12 @@ namespace MyAppTodo // Déclaration d'un espace de noms pour organiser le code
                 // Définition de la commande SQL pour créer la table "Todos"
                 command.CommandText = @"
                 CREATE TABLE IF NOT EXISTS Todos (
-                    Id INTEGER PRIMARY KEY AUTOINCREMENT, // Identifiant unique de la tâche, s'auto-incrémente
-                    Name TEXT NOT NULL, // Nom de la tâche, ne peut pas être vide
-                    StartDate TEXT NOT NULL, // Date de début, ne peut pas être vide
-                    EndDate TEXT NOT NULL, // Date de fin, ne peut pas être vide
-                    Status TEXT NOT NULL, // Statut de la tâche, ne peut pas être vide
-                    Priority INTEGER NOT NULL // Priorité de la tâche, ne peut pas être vide
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                    Name TEXT NOT NULL, 
+                    StartDate TEXT NOT NULL,
+                    EndDate TEXT NOT NULL,
+                    Status TEXT NOT NULL, 
+                    Priority INTEGER NOT NULL 
                 );";
 
                 // Exécution de la commande pour créer la table dans la base de données
