@@ -26,11 +26,11 @@ MyAppTodo is a simple and efficient to-do list application that helps users mana
 ## Screenshots
 
 ### Main Interface
-![Main Interface](MyappTodo/images/main_interface.png)
+![Main Interface](myapptodo/images/main_interface.png)
 
 ### Add Task Dialog
-![Add Task Dialog](images/add_task_dialog.png)
+![Add Task Dialog](myapptodo/images/add_task_dialog.png)
 
 ### Update Task Dialog
-![Update Task Dialog](images/update_task_dialog.png)
+![Update Task Dialog](myapptodo/images/update_task_dialog.png)
  
