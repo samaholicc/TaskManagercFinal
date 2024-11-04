@@ -1,0 +1,7 @@
+C:\Users\OMAR\source\repos\myapptodo\myapptodo\obj\Release\net8.0-windows\myapptodo.csproj.AssemblyReference.cache
+C:\Users\OMAR\source\repos\myapptodo\myapptodo\obj\Release\net8.0-windows\myapptodo.Form1.resources
+C:\Users\OMAR\source\repos\myapptodo\myapptodo\obj\Release\net8.0-windows\myapptodo.csproj.GenerateResource.cache
+C:\Users\OMAR\source\repos\myapptodo\myapptodo\obj\Release\net8.0-windows\myapptodo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\OMAR\source\repos\myapptodo\myapptodo\obj\Release\net8.0-windows\myapptodo.AssemblyInfoInputs.cache
+C:\Users\OMAR\source\repos\myapptodo\myapptodo\obj\Release\net8.0-windows\myapptodo.AssemblyInfo.cs
+C:\Users\OMAR\source\repos\myapptodo\myapptodo\obj\Release\net8.0-windows\myapptodo.csproj.CoreCompileInputs.cache
