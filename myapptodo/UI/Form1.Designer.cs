@@ -100,7 +100,10 @@
             resources.ApplyResources(searchButton, "searchButton");
             searchButton.Name = "searchButton";
             searchButton.UseVisualStyleBackColor = true;
+<<<<<<< HEAD
             searchButton.Click += SearchButton_Click;
+=======
+>>>>>>> 1023f2c5db4adc178a50a92bc1a0e819b37783b9
             // 
             // searchBox
             // 
@@ -168,7 +171,10 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Form1";
             Load += Form1_Load;
+<<<<<<< HEAD
             Click += SearchButton_Click;
+=======
+>>>>>>> 1023f2c5db4adc178a50a92bc1a0e819b37783b9
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

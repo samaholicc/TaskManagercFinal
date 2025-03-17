@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <None Remove="nlog.config" />
   </ItemGroup>
 
@@ -20,6 +21,8 @@
 
   <ItemGroup>
     <PackageReference Include="NLog" Version="5.4.0" />
+=======
+>>>>>>> 1023f2c5db4adc178a50a92bc1a0e819b37783b9
     <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
   </ItemGroup>
 
