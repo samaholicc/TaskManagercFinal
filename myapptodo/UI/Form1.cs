@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using MyAppTodo;
 using NLog;
+using System.Linq;
 
 namespace MyAppTodo
 {
@@ -30,7 +31,7 @@ namespace MyAppTodo
                 _todoRepository.Add(newTask);
                 ChargerTaches();
                 Logger.Info($"Tâche ajoutée: {newTask.Name}");
-          
+
             }
         }
 
@@ -54,19 +55,19 @@ namespace MyAppTodo
         private void ChargerTaches()
         {
             TodoListView.Items.Clear();
-            var taches = _todoRepository.GetAll(); // Retrieve tasks
+            var taches = _todoRepository.GetAll().OrderByDescending(t => t.Priorite).ToList(); // Retrieve and sort tasks
             foreach (var tache in taches)
             {
                 var item = new ListViewItem(tache.Id.ToString())
                 {
                     SubItems =
-                    {
-                        tache.Name,
-                        tache.Date_Debut.ToString("g"),
-                        tache.Date_Fin.ToString("g"),
-                        tache.Statut,
-                        tache.Priorite.ToString()
-                    }
+                     {
+                         tache.Name,
+                         tache.Date_Debut.ToString("g"),
+                         tache.Date_Fin.ToString("g"),
+                         tache.Statut,
+                         tache.Priorite.ToString()
+                     }
                 };
 
                 TodoListView.Items.Add(item);
@@ -198,6 +199,12 @@ namespace MyAppTodo
 
             if (prompt.ShowDialog() == DialogResult.OK)
             {
+                if (startDatePicker.Value > endDatePicker.Value)
+                {
+                    MessageBox.Show("La date de début ne peut pas être après la date de fin.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+
                 return new Todo
                 {
                     Name = nameBox.Text,
@@ -289,6 +296,12 @@ namespace MyAppTodo
 
             if (prompt.ShowDialog() == DialogResult.OK)
             {
+                if (startDatePicker.Value > endDatePicker.Value)
+                {
+                    MessageBox.Show("La date de début ne peut pas être après la date de fin.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+
                 tache.Name = nameBox.Text;
                 tache.Date_Debut = startDatePicker.Value;
                 tache.Date_Fin = endDatePicker.Value;
