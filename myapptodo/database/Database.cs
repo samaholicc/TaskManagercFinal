@@ -1,6 +1,7 @@
 using System;
 using System.Data.SQLite;
-using System.Configuration;
+using System.IO;
+//using System.Configuration; //Removed as no longer needed
 
 namespace MyAppTodo.Database
 {
@@ -10,7 +11,8 @@ namespace MyAppTodo.Database
 
         public Database()
         {
-            _connectionString = ConfigurationManager.AppSettings["SQLiteConnectionString"];
+            var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tasks.db");
+            _connectionString = $"Data Source={dbPath};Version=3;";
         }
 
         public void InitializeDatabase()

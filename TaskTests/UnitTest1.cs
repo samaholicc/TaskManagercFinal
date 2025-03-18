@@ -8,7 +8,8 @@ public class TodoRepositoryTests
 
     public TodoRepositoryTests()
     {
-        new MyAppTodo.Database.Database().InitializeDatabase(); // Initialize database with correct schema
+        var database = new MyAppTodo.Database.Database();
+        database.InitializeDatabase(); // Initialize database with correct schema
         _repository = new TodoRepository();
         CleanupDatabase(); // Clean the database before each test
     }
@@ -87,8 +88,6 @@ public class TodoRepositoryTests
 
     // Test deleting a Todo
     [Fact]
-
-  
     public void DeleteTodo_ShouldRemoveTodoFromRepository()
     {
         var newTodo = new Todo
@@ -114,8 +113,4 @@ public class TodoRepositoryTests
         var deletedTodo = _repository.GetById(newTodoId);
         Assert.Null(deletedTodo);
     }
-
-
-
-
 }
