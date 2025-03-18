@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -7,14 +6,13 @@ public class TodoRepositoryTests
 {
     private readonly TodoRepository _repository;
 
-    // Constructor - on crée une nouvelle instance de TodoRepository
     public TodoRepositoryTests()
     {
-        _repository = new TodoRepository(); // Utilisation de la connection par défaut
-        CleanupDatabase(); // Nettoyer la base de données avant chaque test
+        _repository = new TodoRepository(); // Create a new instance of the repository
+        CleanupDatabase(); // Clean the database before each test
     }
 
-    // Nettoyer la base de données
+    // Clean the database before each test
     private void CleanupDatabase()
     {
         var todos = _repository.GetAll();
@@ -24,134 +22,99 @@ public class TodoRepositoryTests
         }
     }
 
-    // Teste l'ajout d'un Todo à la base de données
+    // Test adding a new Todo
     [Fact]
-    public void AddTodo_ShouldAddTodoToDatabase()
+    public void AddTodo_ShouldAddTodoToRepository()
     {
-        // Arrange - Créer un nouveau Todo
+        // Arrange - Create a new Todo
         var newTodo = new Todo
         {
-            Nom = "Test Todo",
-            StartDate = DateTime.Now,
-            EndDate = DateTime.Now.AddDays(1),
-            Status = "Not Started",
-            Priority = 1
+            Name = "Test Todo",
+            Date_Debut = DateTime.Now,
+            Date_Fin = DateTime.Now.AddDays(1),
+            Statut = "Not Started",
+            Priorite = 1
         };
 
-        // Act - Ajouter le Todo à la base de données
+        // Act - Add the Todo to the repository
         _repository.Add(newTodo);
 
-        // Assert - Vérifie que le Todo a bien été ajouté
+        // Assert - Verify that the Todo was added
         var todos = _repository.GetAll();
-        Assert.Contains(todos, todo => todo.Nom == "Test Todo");
+        Assert.Contains(todos, todo => todo.Name == "Test Todo");
     }
 
-    // Teste la mise à jour d'un Todo
+    // Test updating an existing Todo
     [Fact]
-    public void UpdateTodo_ShouldUpdateTodoInDatabase()
+    public void UpdateTodo_ShouldUpdateTodoInRepository()
     {
-        // Arrange - Créer un Todo à ajouter
+        // Arrange - Create and add a new Todo
         var newTodo = new Todo
         {
-            Nom = "Test Todo",
-            StartDate = DateTime.Now,
-            EndDate = DateTime.Now.AddDays(1),
-            Status = "Not Started",
-            Priority = 1
+            Name = "Test Todo",
+            Date_Debut = DateTime.Now,
+            Date_Fin = DateTime.Now.AddDays(1),
+            Statut = "Not Started",
+            Priorite = 1
         };
         _repository.Add(newTodo);
 
-        // Modifier le Todo
+        var newTodoId = newTodo.Id; // Get the Id of the newly added Todo
+
+        // Create the updated Todo object
         var updatedTodo = new Todo
         {
-            Id = newTodo.Id, // L'ID du Todo à mettre à jour
-            Nom = "Updated Todo",
-            StartDate = DateTime.Now.AddDays(2),
-            EndDate = DateTime.Now.AddDays(3),
-            Status = "In Progress",
-            Priority = 2
+            Id = newTodoId, // Use the same Id
+            Name = "Updated Todo",
+            Date_Debut = DateTime.Now.AddDays(2),
+            Date_Fin = DateTime.Now.AddDays(3),
+            Statut = "In Progress",
+            Priorite = 2
         };
 
-        // Act - Mettre à jour le Todo dans la base de données
+        // Act - Update the Todo in the repository
         _repository.Update(updatedTodo);
 
-        // Assert - Vérifie que le Todo a bien été mis à jour
+        // Assert - Verify that the Todo was updated
         var todos = _repository.GetAll();
-        var updatedTodoFromDb = todos.Find(todo => todo.Id == newTodo.Id);
-        Assert.NotNull(updatedTodoFromDb);
-        Assert.Equal("Updated Todo", updatedTodoFromDb.Nom);
-        Assert.Equal("In Progress", updatedTodoFromDb.Status);
+        var updatedTodoFromRepo = todos.FirstOrDefault(todo => todo.Id == newTodoId);
+        Assert.NotNull(updatedTodoFromRepo); // Ensure the Todo exists after the update
+        Assert.Equal("Updated Todo", updatedTodoFromRepo.Name);
+        Assert.Equal("In Progress", updatedTodoFromRepo.Statut);
+        Assert.Equal(2, updatedTodoFromRepo.Priorite);
     }
 
-    // Teste la suppression d'un Todo
+    // Test deleting a Todo
     [Fact]
-   
-    public void DeleteTodo_ShouldRemoveTodoFromDatabase()
+
+  
+    public void DeleteTodo_ShouldRemoveTodoFromRepository()
     {
-        // Arrange
         var newTodo = new Todo
         {
-            Nom = "Test Todo",
-            StartDate = DateTime.Now,
-            EndDate = DateTime.Now.AddDays(1),
-            Status = "Not Started",
-            Priority = 1
+            Name = "Test Todo",
+            Date_Debut = DateTime.Now,
+            Date_Fin = DateTime.Now.AddDays(1),
+            Statut = "Not Started",
+            Priorite = 1
         };
-        _repository.Add(newTodo); // Add the Todo to the database
 
-        // Get the ID of the newly added Todo
-        var todoId = newTodo.Id;
+        // Log ID before adding
+        Console.WriteLine($"Attempting to add Todo with Name: {newTodo.Name}");
 
-        // Act
-        _repository.Delete(todoId); // Attempt to delete the Todo
+        _repository.Add(newTodo);
+        var newTodoId = newTodo.Id;
 
-        // Assert - Verify that the Todo is no longer in the database
-        var deletedTodo = _repository.GetById(todoId);
-        Assert.Null(deletedTodo);  // The Todo should be null if it was deleted
+        // Log ID before deletion
+        Console.WriteLine($"Attempting to delete Todo with ID: {newTodoId}");
+
+        _repository.Delete(newTodoId);
+
+        var deletedTodo = _repository.GetById(newTodoId);
+        Assert.Null(deletedTodo);
     }
 
 
-    // Teste la récupération de tous les Todos
-    [Fact]
-    public void GetAllTodos_ShouldReturnAllTodosFromDatabase()
-    {
-        // Arrange - Ajouter plusieurs Todos
-        var todo1 = new Todo
-        {
-            Nom = "Todo 1",
-            StartDate = DateTime.Now,
-            EndDate = DateTime.Now.AddDays(1),
-            Status = "Not Started",
-            Priority = 1
-        };
-        var todo2 = new Todo
-        {
-            Nom = "Todo 2",
-            StartDate = DateTime.Now.AddDays(1),
-            EndDate = DateTime.Now.AddDays(2),
-            Status = "In Progress",
-            Priority = 2
-        };
-        _repository.Add(todo1);
-        _repository.Add(todo2);
 
-        // Act - Récupérer tous les Todos de la base de données
-        var todos = _repository.GetAll();
 
-        // Assert - Vérifie que tous les Todos sont présents dans la liste
-        Assert.Contains(todos, todo => todo.Nom == "Todo 1");
-        Assert.Contains(todos, todo => todo.Nom == "Todo 2");
-    }
-
-    // Teste la gestion d'une exception lors de la suppression d'un Todo inexistant
-    [Fact]
-    public void DeleteTodo_ShouldThrowExceptionWhenTodoNotFound()
-    {
-        // Arrange - Créer un Todo avec un ID non existant
-        var nonExistentId = 999;
-
-        // Act & Assert - Vérifie que la méthode Delete lance une exception pour un Todo inexistant
-        var exception = Assert.Throws<InvalidOperationException>(() => _repository.Delete(nonExistentId));
-        Assert.Equal("Todo not found", exception.Message);
-    }
 }

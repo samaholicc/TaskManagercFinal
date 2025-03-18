@@ -15,7 +15,7 @@ namespace MyAppTodo
         public Form1()
         {
             InitializeComponent();
-            new Database().InitializeDatabase();
+            new MyAppTodo.Database.Database().InitializeDatabase();
             _todoRepository = new TodoRepository();
             ChargerTaches();
             InitializeSearchBar();
@@ -29,7 +29,7 @@ namespace MyAppTodo
             {
                 _todoRepository.Add(newTask);
                 ChargerTaches();
-                Logger.Info($"Tâche ajoutée: {newTask.Nom}");
+                Logger.Info($"Tâche ajoutée: {newTask.Name}");
           
             }
         }
@@ -61,11 +61,11 @@ namespace MyAppTodo
                 {
                     SubItems =
                     {
-                        tache.Nom,
-                        tache.StartDate.ToString("g"),
-                        tache.EndDate.ToString("g"),
-                        tache.Status,
-                        tache.Priority.ToString()
+                        tache.Name,
+                        tache.Date_Debut.ToString("g"),
+                        tache.Date_Fin.ToString("g"),
+                        tache.Statut,
+                        tache.Priorite.ToString()
                     }
                 };
 
@@ -97,7 +97,7 @@ namespace MyAppTodo
                         _todoRepository.Update(updatedTask);
                         ChargerTaches();
 
-                        Logger.Info($"Tâche modifiée: {updatedTask.Nom}");
+                        Logger.Info($"Tâche modifiée: {updatedTask.Name}");
 
                     }
                 }
@@ -200,11 +200,11 @@ namespace MyAppTodo
             {
                 return new Todo
                 {
-                    Nom = nameBox.Text,
-                    StartDate = startDatePicker.Value,
-                    EndDate = endDatePicker.Value,
-                    Status = statusBox.SelectedItem.ToString(),
-                    Priority = (int)priorityBox.Value
+                    Name = nameBox.Text,
+                    Date_Debut = startDatePicker.Value,
+                    Date_Fin = endDatePicker.Value,
+                    Statut = statusBox.SelectedItem.ToString(),
+                    Priorite = (int)priorityBox.Value
                 };
             }
 
@@ -240,23 +240,23 @@ namespace MyAppTodo
 
             Label nameLabel = CreateTransparentLabel("Nom de la tâche", 50, 20);
 
-            TextBox nameBox = new TextBox { Left = 50, Top = nameLabel.Bottom + spacing, Width = 300, Text = tache.Nom };
+            TextBox nameBox = new TextBox { Left = 50, Top = nameLabel.Bottom + spacing, Width = 300, Text = tache.Name };
 
 
 
             Label startDateLabel = CreateTransparentLabel("Date de début", 50, nameBox.Bottom + spacing);
-            DateTimePicker startDatePicker = new DateTimePicker { Left = 50, Top = startDateLabel.Bottom + spacing, Width = 300, Value = tache.StartDate };
+            DateTimePicker startDatePicker = new DateTimePicker { Left = 50, Top = startDateLabel.Bottom + spacing, Width = 300, Value = tache.Date_Debut };
 
             Label endDateLabel = CreateTransparentLabel("Date de fin", 50, startDatePicker.Bottom + spacing);
-            DateTimePicker endDatePicker = new DateTimePicker { Left = 50, Top = endDateLabel.Bottom + spacing, Width = 300, Value = tache.EndDate };
+            DateTimePicker endDatePicker = new DateTimePicker { Left = 50, Top = endDateLabel.Bottom + spacing, Width = 300, Value = tache.Date_Fin };
 
             Label statusLabel = CreateTransparentLabel("Statut", 50, endDatePicker.Bottom + spacing);
             ComboBox statusBox = new ComboBox { Left = 50, Top = statusLabel.Bottom + spacing, Width = 300 };
             statusBox.Items.AddRange(new[] { "En cours", "Terminée", "Suspendue" });
-            statusBox.SelectedItem = tache.Status;
+            statusBox.SelectedItem = tache.Statut;
 
             Label priorityLabel = CreateTransparentLabel("Priorité", 50, statusBox.Bottom + spacing);
-            NumericUpDown priorityBox = new NumericUpDown { Left = 50, Top = priorityLabel.Bottom + spacing, Width = 300, Value = tache.Priority, Minimum = 1, Maximum = 5 };
+            NumericUpDown priorityBox = new NumericUpDown { Left = 50, Top = priorityLabel.Bottom + spacing, Width = 300, Value = tache.Priorite, Minimum = 1, Maximum = 5 };
 
             Button confirmation = new Button { Text = "Modifier", Width = 100, Top = priorityBox.Bottom + spacing + 10, Enabled = false };
             confirmation.Left = (prompt.ClientSize.Width - confirmation.Width) / 2;
@@ -289,11 +289,11 @@ namespace MyAppTodo
 
             if (prompt.ShowDialog() == DialogResult.OK)
             {
-                tache.Nom = nameBox.Text;
-                tache.StartDate = startDatePicker.Value;
-                tache.EndDate = endDatePicker.Value;
-                tache.Status = statusBox.SelectedItem.ToString();
-                tache.Priority = (int)priorityBox.Value;
+                tache.Name = nameBox.Text;
+                tache.Date_Debut = startDatePicker.Value;
+                tache.Date_Fin = endDatePicker.Value;
+                tache.Statut = statusBox.SelectedItem.ToString();
+                tache.Priorite = (int)priorityBox.Value;
                 return tache;
             }
 

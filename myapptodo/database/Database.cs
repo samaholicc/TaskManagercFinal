@@ -2,7 +2,7 @@ using System;
 using System.Configuration; // Ajouter l'using pour ConfigurationManager
 using System.Data.SQLite;
 
-namespace MyAppTodo
+namespace MyAppTodo.Database
 {
     public class Database
     {
