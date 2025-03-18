@@ -22,8 +22,13 @@ namespace MyAppTodo.Database
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
+                    // Drop existing table if it exists
+                    command.CommandText = "DROP TABLE IF EXISTS Todo";
+                    command.ExecuteNonQuery();
+                    
+                    // Create new table with correct schema
                     command.CommandText = @"
-                        CREATE TABLE IF NOT EXISTS Todo (
+                        CREATE TABLE Todo (
                             Id INTEGER PRIMARY KEY AUTOINCREMENT,
                             Name TEXT NOT NULL,
                             Date_Debut TEXT NOT NULL,
