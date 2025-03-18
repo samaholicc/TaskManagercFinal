@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "AjY7Re0DBy3AijhY7yv0hT0aTviRSEsv96v6SVFqBlGA+0MGoQXzD9EU6Ejvbo3T3E3tuPSx439uIvlOfDd9qg==",
-  "success": false,
+  "dgSpecHash": "DgW4jtUBXvLmRu/WG3wNxD7LZMaF2Q7bVOmMx8wViEl9u/PvmV6kv75JNnAy12h/rZOpSI0KdRlsugvS/SjkHQ==",
+  "success": true,
   "projectFilePath": "/home/runner/workspace/myapptodo/myapptodo.csproj",
   "expectedPackageFiles": [
     "/home/runner/.nuget/packages/entityframework/6.4.4/entityframework.6.4.4.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.netcore.platforms/3.1.0/microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.win32.registry/4.7.0/microsoft.win32.registry.4.7.0.nupkg.sha512",
-    "/home/runner/.nuget/packages/microsoft.win32.systemevents/7.0.0/microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.win32.systemevents/4.7.0/microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/nlog/5.4.0/nlog.5.4.0.nupkg.sha512",
     "/home/runner/.nuget/packages/runtime.native.system.data.sqlclient.sni/4.7.0/runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/runtime.win-arm64.runtime.native.system.data.sqlclient.sni/4.4.0/runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -22,32 +22,12 @@
     "/home/runner/.nuget/packages/system.data.sqlite/1.0.119/system.data.sqlite.1.0.119.nupkg.sha512",
     "/home/runner/.nuget/packages/system.data.sqlite.core/1.0.119/system.data.sqlite.core.1.0.119.nupkg.sha512",
     "/home/runner/.nuget/packages/system.data.sqlite.ef6/1.0.119/system.data.sqlite.ef6.1.0.119.nupkg.sha512",
-    "/home/runner/.nuget/packages/system.drawing.common/7.0.0/system.drawing.common.7.0.0.nupkg.sha512",
-    "/home/runner/.nuget/packages/system.resources.extensions/7.0.0/system.resources.extensions.7.0.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/system.drawing.common/4.7.0/system.drawing.common.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.security.accesscontrol/4.7.0/system.security.accesscontrol.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.security.cryptography.protecteddata/4.7.0/system.security.cryptography.protecteddata.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.security.permissions/4.7.0/system.security.permissions.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.security.principal.windows/4.7.0/system.security.principal.windows.4.7.0.nupkg.sha512",
-    "/home/runner/.nuget/packages/system.windows.extensions/4.7.0/system.windows.extensions.4.7.0.nupkg.sha512",
-    "/home/runner/.nuget/packages/wixtoolset.visualstudio.wixext/5.0.2/wixtoolset.visualstudio.wixext.5.0.2.nupkg.sha512",
-    "/home/runner/.nuget/packages/xunit/2.9.3/xunit.2.9.3.nupkg.sha512",
-    "/home/runner/.nuget/packages/xunit.abstractions/2.0.3/xunit.abstractions.2.0.3.nupkg.sha512",
-    "/home/runner/.nuget/packages/xunit.analyzers/1.18.0/xunit.analyzers.1.18.0.nupkg.sha512",
-    "/home/runner/.nuget/packages/xunit.assert/2.9.3/xunit.assert.2.9.3.nupkg.sha512",
-    "/home/runner/.nuget/packages/xunit.core/2.9.3/xunit.core.2.9.3.nupkg.sha512",
-    "/home/runner/.nuget/packages/xunit.extensibility.core/2.9.3/xunit.extensibility.core.2.9.3.nupkg.sha512",
-    "/home/runner/.nuget/packages/xunit.extensibility.execution/2.9.3/xunit.extensibility.execution.2.9.3.nupkg.sha512",
-    "/home/runner/.nuget/packages/xunit.runner.visualstudio/3.0.2/xunit.runner.visualstudio.3.0.2.nupkg.sha512"
+    "/home/runner/.nuget/packages/system.windows.extensions/4.7.0/system.windows.extensions.4.7.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1102",
-      "level": "Error",
-      "message": "Unable to find package Microsoft.WindowsDesktop.App with version (>= 7.0.0)\n  - Found 7 version(s) in nuget.org [ Nearest version: 3.0.0-preview8-28405-07 ]",
-      "libraryId": "Microsoft.WindowsDesktop.App",
-      "targetGraphs": [
-        "net7.0"
-      ]
-    }
-  ]
+  "logs": []
 }
