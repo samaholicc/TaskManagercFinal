@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="NLog" Version="5.4.0" />
-
+    <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
 
     <PackageReference Include="WixToolset.VisualStudio.wixext" Version="5.0.2" />
