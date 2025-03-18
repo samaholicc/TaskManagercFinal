@@ -20,20 +20,8 @@
 
   <ItemGroup>
     <PackageReference Include="NLog" Version="5.4.0" />
-    <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
-    <PackageReference Include="Microsoft.WindowsDesktop.App" Version="7.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
-
-    <PackageReference Include="WixToolset.VisualStudio.wixext" Version="5.0.2" />
-
-    <PackageReference Include="xunit" Version="2.9.3" />
-
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+    </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
