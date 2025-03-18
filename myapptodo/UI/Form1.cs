@@ -29,7 +29,11 @@ namespace MyAppTodo
             {
                 _todoRepository.Add(newTask);
                 ChargerTaches();
+<<<<<<< HEAD
                 Logger.Info($"Tâche ajoutée: {newTask.Nom}");
+=======
+                Logger.Info($"Tâche ajoutée: {newTask.Name}");
+>>>>>>> 5d093ac407a3468ab5104bafc6b6f94107a88c1e
             }
         }
 
@@ -95,7 +99,11 @@ namespace MyAppTodo
                     {
                         _todoRepository.Update(updatedTask);
                         ChargerTaches();
+<<<<<<< HEAD
                         Logger.Info($"Tâche modifiée: {updatedTask.Nom}");
+=======
+                        Logger.Info($"Tâche modifiée: {updatedTask.Name}");
+>>>>>>> 5d093ac407a3468ab5104bafc6b6f94107a88c1e
                     }
                 }
             }
@@ -236,7 +244,11 @@ namespace MyAppTodo
             const int spacing = 5;
 
             Label nameLabel = CreateTransparentLabel("Nom de la tâche", 50, 20);
+<<<<<<< HEAD
             TextBox nameBox = new TextBox { Left = 50, Top = nameLabel.Bottom + spacing, Width = 300, Text = tache.Nom };
+=======
+            TextBox nameBox = new TextBox { Left = 50, Top = nameLabel.Bottom + spacing, Width = 300, Text = tache.Name };
+>>>>>>> 5d093ac407a3468ab5104bafc6b6f94107a88c1e
 
             Label startDateLabel = CreateTransparentLabel("Date de début", 50, nameBox.Bottom + spacing);
             DateTimePicker startDatePicker = new DateTimePicker { Left = 50, Top = startDateLabel.Bottom + spacing, Width = 300, Value = tache.StartDate };
