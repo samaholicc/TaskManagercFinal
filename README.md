@@ -1,70 +1,37 @@
-
 # MyAppTodo
 
-MyAppTodo is a simple and efficient to-do list application that helps users manage their tasks effectively. The application provides a user-friendly interface for creating, updating, and deleting tasks, and allows setting priorities and deadlines for each task.
+MyAppTodo est une application simple et efficace de gestion de tâches qui permet aux utilisateurs de mieux organiser leur travail. L'application propose une interface intuitive pour créer, mettre à jour et supprimer des tâches, tout en permettant de définir des priorités et des échéances.
 
-## Features
+## Fonctionnalités
 
-- **Add Tasks**: Easily add new tasks with a name, start date, end date, status, and priority.
-- **View Tasks**: See all tasks in a list format with relevant details.
-- **Edit Tasks**: Update the details of your tasks at any time.
-- **Delete Tasks**: Remove tasks that are no longer needed.
-- **Search Functionality**: Quickly find tasks based on the task name.
-- **Database Persistence**: All tasks are stored in an SQLite database, ensuring data is retained even when the application is closed.
+- **Ajouter des tâches** : Ajoutez facilement de nouvelles tâches avec un nom, une date de début, une date de fin, un statut et une priorité.  
+- **Voir les tâches** : Consultez la liste des tâches avec tous les détails nécessaires.  
+- **Modifier des tâches** : Mettez à jour les informations de vos tâches à tout moment.  
+- **Supprimer des tâches** : Supprimez les tâches devenues inutiles.  
+- **Recherche rapide** : Trouvez facilement des tâches en fonction de leur nom.  
+- **Persistance des données** : Toutes les tâches sont stockées dans une base de données **SQLite**, garantissant la conservation des données même après la fermeture de l'application.  
+- **Gestion des logs** : Utilisation de **NLog** pour enregistrer les actions et événements importants.  
+- **Tests unitaires** : Utilisation de **xUnit** pour garantir la stabilité et la fiabilité du code.  
 
-## Technologies Used
+## Technologies utilisées
 
-- **C#**: The main programming language used to build the application.
-- **Windows Forms**: For building the graphical user interface (GUI).
-- **SQLite**: For database management to store tasks persistently.
+- **C#** : Langage de programmation principal utilisé pour développer l'application.  
+- **Windows Forms** : Interface graphique (GUI) pour une interaction facile avec l'utilisateur.  
+- **SQLite** : Système de gestion de base de données utilisé pour stocker les tâches.  
+- **NLog** : Outil de journalisation pour suivre les événements et erreurs.  
+- **xUnit** : Framework de tests unitaires pour assurer la qualité du code.  
 
-## Prerequisites
+## Prérequis
 
-- [.NET Framework](https://dotnet.microsoft.com/download) - Make sure you have the latest version installed.
-- SQLite library for .NET.
+- [**.NET Framework**](https://dotnet.microsoft.com/download) - Assurez-vous d'avoir la dernière version installée.  
+- **Bibliothèque SQLite pour .NET**.  
+- **Bibliothèque NLog pour la gestion des logs**.  
+- **xUnit pour les tests unitaires**.  
 
+## Captures d'écran
 
-## Screenshots
+### Interface principale  
+![Interface principale](myapptodo/images/main_interface.png)  
 
-### Main Interface
-![Main Interface](myapptodo/images/main_interface.png)
-
-### Add Task Dialog
-![Add Task Dialog](myapptodo/images/add_task_dialog.png)
-
- 
-=======
-# MyAppTodo
-
-MyAppTodo is a simple and efficient to-do list application that helps users manage their tasks effectively. The application provides a user-friendly interface for creating, updating, and deleting tasks, and allows setting priorities and deadlines for each task.
-
-## Features
-
-- **Add Tasks**: Easily add new tasks with a name, start date, end date, status, and priority.
-- **View Tasks**: See all tasks in a list format with relevant details.
-- **Edit Tasks**: Update the details of your tasks at any time.
-- **Delete Tasks**: Remove tasks that are no longer needed.
-- **Search Functionality**: Quickly find tasks based on the task name.
-- **Database Persistence**: All tasks are stored in an SQLite database, ensuring data is retained even when the application is closed.
-
-## Technologies Used
-
-- **C#**: The main programming language used to build the application.
-- **Windows Forms**: For building the graphical user interface (GUI).
-- **SQLite**: For database management to store tasks persistently.
-
-## Prerequisites
-
-- [.NET Framework](https://dotnet.microsoft.com/download) - Make sure you have the latest version installed.
-- SQLite library for .NET.
-
-
-## Screenshots
-
-### Main Interface
-![Main Interface](myapptodo/images/main_interface.png)
-
-### Add Task Dialog
-![Add Task Dialog](myapptodo/images/add_task_dialog.png)
-
- 
+### Fenêtre d'ajout de tâche  
+![Fenêtre d'ajout de tâche](myapptodo/images/add_task_dialog.png)  
