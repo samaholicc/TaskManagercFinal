@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "XCqpElQBBaox36NDcsxG7RKdvN8tA7LTxWY8TYDG4E/ue/CCax34WixehS3+lensqzD2JR15fLLeEo4FvYagvg==",
+  "dgSpecHash": "hndB6ntqZtm3BH7UIqhiUny6LdFSPX6FseevYwt2JbvpbtQ8XzbLUVji0WfRu31Pry7my/Bv8Ung4wtZm6nmrg==",
   "success": true,
   "projectFilePath": "/home/runner/workspace/myapptodo/myapptodo.csproj",
   "expectedPackageFiles": [
@@ -28,8 +28,7 @@
     "/home/runner/.nuget/packages/system.security.cryptography.protecteddata/4.7.0/system.security.cryptography.protecteddata.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.security.permissions/4.7.0/system.security.permissions.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.security.principal.windows/4.7.0/system.security.principal.windows.4.7.0.nupkg.sha512",
-    "/home/runner/.nuget/packages/system.windows.extensions/4.7.0/system.windows.extensions.4.7.0.nupkg.sha512",
-    "/home/runner/.nuget/packages/microsoft.windowsdesktop.app.ref/7.0.20/microsoft.windowsdesktop.app.ref.7.0.20.nupkg.sha512"
+    "/home/runner/.nuget/packages/system.windows.extensions/4.7.0/system.windows.extensions.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }
