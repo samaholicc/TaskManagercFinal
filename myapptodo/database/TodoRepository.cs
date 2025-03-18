@@ -8,14 +8,14 @@ using System.IO;
 /// </summary>
 public class TodoRepository
 {
-    // String de connexion à la base de données SQLite
-    private const string ConnectionString = "Data Source=todos.db;Version=3;";
+    private readonly string _connectionString;
 
     /// <summary>
-    /// Constructor that initializes the database.
+    /// Constructor that initializes the database with an optional connection string.
     /// </summary>
-    public TodoRepository()
+    public TodoRepository(string connectionString = "Data Source=todos.db;Version=3;")
     {
+        _connectionString = connectionString;
         InitializeDatabase();
     }
 
@@ -24,28 +24,26 @@ public class TodoRepository
     /// </summary>
     private void InitializeDatabase()
     {
-        // Vérifier si le fichier de base de données existe déjà
         if (!File.Exists("todos.db"))
         {
-            // Créer un nouveau fichier de base de données
             SQLiteConnection.CreateFile("todos.db");
 
-            // Ouvrir la connexion à la base de données
-            using (var connection = new SQLiteConnection(ConnectionString))
+            using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = @"
-                    CREATE TABLE Todo (
-                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        Nom TEXT NOT NULL,
-                        Date_debut TEXT NOT NULL,
-                        Date_fin TEXT NOT NULL,
-                        Statut TEXT NOT NULL,
-                        Priorite INTEGER NOT NULL
-                    );";
-                // Exécute la commande pour créer la table
-                command.ExecuteNonQuery();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = @"
+                        CREATE TABLE Todo (
+                            Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            Name TEXT NOT NULL,
+                            Date_debut TEXT NOT NULL,
+                            Date_fin TEXT NOT NULL,
+                            Statut TEXT NOT NULL,
+                            Priorite INTEGER NOT NULL
+                        );";
+                    command.ExecuteNonQuery();
+                }
             }
         }
     }
@@ -56,36 +54,35 @@ public class TodoRepository
     /// <returns>A list of Todo items.</returns>
     public List<Todo> GetAll()
     {
-        var todos = new List<Todo>(); // Liste pour stocker les tâches
+        var todos = new List<Todo>();
 
-        // Ouvrir une nouvelle connexion pour lire les données
-        using (var connection = new SQLiteConnection(ConnectionString))
+        using (var connection = new SQLiteConnection(_connectionString))
         {
             connection.Open();
-            var command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM Todo;"; // Commande pour sélectionner toutes les tâches
-
-            // Lire les résultats de la commande
-            using (var reader = command.ExecuteReader())
+            using (var command = connection.CreateCommand())
             {
-                while (reader.Read())
+                command.CommandText = "SELECT * FROM Todo;";
+
+                using (var reader = command.ExecuteReader())
                 {
-                    // Créer une nouvelle instance de Todo à partir des résultats
-                    var todo = new Todo
+                    while (reader.Read())
                     {
-                        Id = reader.GetInt32(0),
-                        Name = reader.GetString(1),
-                        StartDate = DateTime.Parse(reader.GetString(2)),
-                        EndDate = DateTime.Parse(reader.GetString(3)),
-                        Status = reader.GetString(4),
-                        Priority = reader.GetInt32(5)
-                    };
-                    todos.Add(todo); // Ajouter l'élément à la liste
+                        var todo = new Todo
+                        {
+                            Id = reader.GetInt32(0),
+                            Nom = reader.GetString(1), // Correction ici : Name au lieu de Nom
+                            StartDate = DateTime.Parse(reader.GetString(2)),
+                            EndDate = DateTime.Parse(reader.GetString(3)),
+                            Status = reader.GetString(4),
+                            Priority = reader.GetInt32(5)
+                        };
+                        todos.Add(todo);
+                    }
                 }
             }
         }
 
-        return todos; // Retourner la liste de tâches
+        return todos;
     }
 
     /// <summary>
@@ -94,21 +91,23 @@ public class TodoRepository
     /// <param name="newTodo">The new Todo item to add.</param>
     public void Add(Todo newTodo)
     {
-        // Ouvrir une connexion à la base de données
-        using (var connection = new SQLiteConnection(ConnectionString))
+        using (var connection = new SQLiteConnection(_connectionString))
         {
             connection.Open();
-            var command = connection.CreateCommand();
-            command.CommandText = @"
-                INSERT INTO Todo (Nom, Date_debut, Date_fin, Statut, Priorite)
-                VALUES ($nom, $date_debut, $date_fin, $statut, $priorite);";
-            // Ajouter les paramètres de la commande
-            command.Parameters.AddWithValue("$nom", newTodo.Name);
-            command.Parameters.AddWithValue("$date_debut", newTodo.StartDate.ToString("o")); // Format ISO 8601
-            command.Parameters.AddWithValue("$date_fin", newTodo.EndDate.ToString("o"));
-            command.Parameters.AddWithValue("$statut", newTodo.Status);
-            command.Parameters.AddWithValue("$priorite", newTodo.Priority);
-            command.ExecuteNonQuery(); // Exécuter la commande d'insertion
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = @"
+                    INSERT INTO Todo (Name, Date_debut, Date_fin, Statut, Priorite)
+                    VALUES ($name, $date_debut, $date_fin, $statut, $priorite);";
+
+                command.Parameters.AddWithValue("$name", newTodo.Nom); // Correction : Name
+                command.Parameters.AddWithValue("$date_debut", newTodo.StartDate.ToString("o"));
+                command.Parameters.AddWithValue("$date_fin", newTodo.EndDate.ToString("o"));
+                command.Parameters.AddWithValue("$statut", newTodo.Status);
+                command.Parameters.AddWithValue("$priorite", newTodo.Priority);
+
+                command.ExecuteNonQuery();
+            }
         }
     }
 
@@ -118,24 +117,25 @@ public class TodoRepository
     /// <param name="updatedTodo">The updated Todo item.</param>
     public void Update(Todo updatedTodo)
     {
-        // Ouvrir une connexion à la base de données
-        using (var connection = new SQLiteConnection(ConnectionString))
+        using (var connection = new SQLiteConnection(_connectionString))
         {
             connection.Open();
-            var command = connection.CreateCommand();
-            command.CommandText = @"
-            UPDATE Todo
-            SET Nom = $nom, Date_debut = $date_debut, Date_fin = $date_fin, Statut = $statut,
-            Priorite = $priorite
-            WHERE Id = $id;"; // Mise à jour des colonnes de la tâche spécifiée par son ID
-            // Ajout des paramètres de la commande
-            command.Parameters.AddWithValue("$id", updatedTodo.Id); // ID de la tâche à mettre à jour
-            command.Parameters.AddWithValue("$nom", updatedTodo.Name);
-            command.Parameters.AddWithValue("$date_debut", updatedTodo.StartDate.ToString("o")); // Format ISO 8601
-            command.Parameters.AddWithValue("$date_fin", updatedTodo.EndDate.ToString("o"));
-            command.Parameters.AddWithValue("$statut", updatedTodo.Status);
-            command.Parameters.AddWithValue("$priorite", updatedTodo.Priority);
-            command.ExecuteNonQuery(); // Exécuter la commande de mise à jour
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = @"
+                    UPDATE Todo
+                    SET Name = $name, Date_debut = $date_debut, Date_fin = $date_fin, Statut = $statut, Priorite = $priorite
+                    WHERE Id = $id;";
+
+                command.Parameters.AddWithValue("$id", updatedTodo.Id);
+                command.Parameters.AddWithValue("$name", updatedTodo.Nom);
+                command.Parameters.AddWithValue("$date_debut", updatedTodo.StartDate.ToString("o"));
+                command.Parameters.AddWithValue("$date_fin", updatedTodo.EndDate.ToString("o"));
+                command.Parameters.AddWithValue("$statut", updatedTodo.Status);
+                command.Parameters.AddWithValue("$priorite", updatedTodo.Priority);
+
+                command.ExecuteNonQuery();
+            }
         }
     }
 
@@ -145,14 +145,19 @@ public class TodoRepository
     /// <param name="id">The ID of the Todo item to delete.</param>
     public void Delete(int id)
     {
-        // Ouvrir une connexion à la base de données
-        using (var connection = new SQLiteConnection(ConnectionString))
+        using (var connection = new SQLiteConnection(_connectionString))
         {
             connection.Open();
-            var command = connection.CreateCommand();
-            command.CommandText = "DELETE FROM Todo WHERE Id = $id;"; // Commande pour supprimer la tâche par ID
-            command.Parameters.AddWithValue("$id", id); // Ajouter l'ID de la tâche à supprimer
-            command.ExecuteNonQuery(); // Exécuter la commande de suppression
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "DELETE FROM Todo WHERE Id = $id;";
+                command.Parameters.AddWithValue("$id", id);
+                command.ExecuteNonQuery();
+            }
         }
     }
 }
+
+/// <summary>
+/// Class representing a Todo item.
+/// </summary>

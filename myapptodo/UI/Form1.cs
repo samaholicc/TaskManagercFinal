@@ -1,28 +1,25 @@
 using System;
-using System.Linq;
-using System.Windows.Forms;
-using NLog; // Add this directive for logging
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using MyAppTodo;
+using NLog;
 
 namespace MyAppTodo
 {
     public partial class Form1 : Form
     {
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger(); // Create the logger
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); // Logger initialization
         private readonly TodoRepository _todoRepository; // Declare the task repository
+        private int selectedTaskId;
 
         public Form1()
         {
-            InitializeComponent(); // Initialize components
-            new Database().InitializeDatabase(); // Initialize the database
-            _todoRepository = new TodoRepository(); // Initialize the repository
-            ChargerTaches(); // Load tasks from the repository
-
-            // Configure the search bar
+            InitializeComponent();
+            new Database().InitializeDatabase();
+            _todoRepository = new TodoRepository();
+            ChargerTaches();
             InitializeSearchBar();
+            Logger.Info("Application démarrée");
         }
 
         private void OnAjouterClick(object sender, EventArgs e)
@@ -30,9 +27,9 @@ namespace MyAppTodo
             var newTask = ShowAddDialog();
             if (newTask != null)
             {
-                _todoRepository.Add(newTask); // Add the new task
-                ChargerTaches(); // Reload the task list
-                logger.Info($"Task added: {newTask.Name}"); // Log the addition
+                _todoRepository.Add(newTask);
+                ChargerTaches();
+                Logger.Info($"Tâche ajoutée: {newTask.Nom}");
             }
         }
 
@@ -43,7 +40,7 @@ namespace MyAppTodo
             this.Controls.Add(searchButton);
         }
 
-        private void SearchButton_Click(object? sender, EventArgs e)
+        private void SearchButton_Click(object sender, EventArgs e)
         {
             string searchTerm = searchBox.Text.ToLower();
             foreach (ListViewItem item in TodoListView.Items)
@@ -63,7 +60,7 @@ namespace MyAppTodo
                 {
                     SubItems =
                     {
-                        tache.Name,
+                        tache.Nom,
                         tache.StartDate.ToString("g"),
                         tache.EndDate.ToString("g"),
                         tache.Status,
@@ -75,40 +72,52 @@ namespace MyAppTodo
             }
         }
 
-        private int selectedTaskId; // Variable to store the selected task ID
-
         private void TodoListView_MouseClick(object sender, MouseEventArgs e)
         {
             var hitTest = TodoListView.HitTest(e.Location);
             if (hitTest.Item != null)
             {
                 selectedTaskId = int.Parse(hitTest.Item.Text); // Get the ID of the selected task
+                Modifier_btn.Enabled = true;
+                Supprimer.Enabled = true;
             }
         }
 
-        private void ModifierTache(int id)
+        private void Modifier_btn_Click(object sender, EventArgs e)
         {
-            var tache = _todoRepository.GetAll().FirstOrDefault(t => t.Id == id);
-            if (tache != null)
+            if (selectedTaskId > 0)
             {
-                var updatedTask = ShowUpdateDialog(tache);
-                if (updatedTask != null)
+                var tache = _todoRepository.GetAll().FirstOrDefault(t => t.Id == selectedTaskId);
+                if (tache != null)
                 {
-                    _todoRepository.Update(updatedTask);
-                    ChargerTaches(); // Reload the task list
-                    logger.Info($"Task modified: {updatedTask.Name}"); // Log the modification
+                    var updatedTask = ShowUpdateDialog(tache);
+                    if (updatedTask != null)
+                    {
+                        _todoRepository.Update(updatedTask);
+                        ChargerTaches();
+                        Logger.Info($"Tâche modifiée: {updatedTask.Nom}");
+                    }
                 }
             }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner une tâche à modifier.", "Avertissement", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void Supprimer_Click(object sender, EventArgs e)
+        {
+            SupprimerTache(selectedTaskId);
         }
 
         private void SupprimerTache(int id)
         {
-            var result = MessageBox.Show("Are you sure you want to delete this task?", "Confirmation", MessageBoxButtons.YesNo);
+            var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cette tâche ?", "Confirmation", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                _todoRepository.Delete(id); // Delete the selected task
-                ChargerTaches(); // Reload the task list
-                logger.Info($"Task deleted: ID {id}"); // Log the deletion
+                _todoRepository.Delete(id);
+                ChargerTaches();
+                Logger.Info($"Tâche supprimée: ID {id}");
             }
         }
 
@@ -126,12 +135,11 @@ namespace MyAppTodo
                 };
             }
 
-            // Create the add task dialog
             Form prompt = new Form
             {
                 Width = 400,
                 Height = 400,
-                Text = "Add Task",
+                Text = "Ajouter Tâche",
                 StartPosition = FormStartPosition.CenterScreen,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 MaximizeBox = false,
@@ -140,24 +148,24 @@ namespace MyAppTodo
 
             const int spacing = 5;
 
-            Label nameLabel = CreateTransparentLabel("Task Name", 50, 20);
+            Label nameLabel = CreateTransparentLabel("Nom de la tâche", 50, 20);
             TextBox nameBox = new TextBox { Left = 50, Top = nameLabel.Bottom + spacing, Width = 300 };
 
-            Label startDateLabel = CreateTransparentLabel("Start Date", 50, nameBox.Bottom + spacing);
+            Label startDateLabel = CreateTransparentLabel("Date de début", 50, nameBox.Bottom + spacing);
             DateTimePicker startDatePicker = new DateTimePicker { Left = 50, Top = startDateLabel.Bottom + spacing, Width = 300, Value = DateTime.Now };
 
-            Label endDateLabel = CreateTransparentLabel("End Date", 50, startDatePicker.Bottom + spacing);
+            Label endDateLabel = CreateTransparentLabel("Date de fin", 50, startDatePicker.Bottom + spacing);
             DateTimePicker endDatePicker = new DateTimePicker { Left = 50, Top = endDateLabel.Bottom + spacing, Width = 300, Value = DateTime.Now.AddDays(1) };
 
-            Label statusLabel = CreateTransparentLabel("Status", 50, endDatePicker.Bottom + spacing);
+            Label statusLabel = CreateTransparentLabel("Statut", 50, endDatePicker.Bottom + spacing);
             ComboBox statusBox = new ComboBox { Left = 50, Top = statusLabel.Bottom + spacing, Width = 300 };
-            statusBox.Items.AddRange(new[] { "In Progress", "Completed", "Suspended" });
-            statusBox.SelectedIndex = 0; // Default to "In Progress"
+            statusBox.Items.AddRange(new[] { "En cours", "Terminée", "Suspendue" });
+            statusBox.SelectedIndex = 0; // Default "En cours"
 
-            Label priorityLabel = CreateTransparentLabel("Priority", 50, statusBox.Bottom + spacing);
+            Label priorityLabel = CreateTransparentLabel("Priorité", 50, statusBox.Bottom + spacing);
             NumericUpDown priorityBox = new NumericUpDown { Left = 50, Top = priorityLabel.Bottom + spacing, Width = 300, Minimum = 1, Maximum = 5 };
 
-            Button confirmation = new Button { Text = "Add", Width = 100, Top = priorityBox.Bottom + spacing + 10, Enabled = false };
+            Button confirmation = new Button { Text = "Ajouter", Width = 100, Top = priorityBox.Bottom + spacing + 10, Enabled = false };
             confirmation.Left = (prompt.ClientSize.Width - confirmation.Width) / 2;
 
             confirmation.Click += (sender, e) =>
@@ -172,9 +180,7 @@ namespace MyAppTodo
             }
 
             nameBox.TextChanged += (sender, e) => UpdateButtonState();
-            statusBox.SelectedIndexChanged += (sender, e) => UpdateButtonState();
 
-            // Add controls to the form
             prompt.Controls.Add(nameLabel);
             prompt.Controls.Add(nameBox);
             prompt.Controls.Add(startDateLabel);
@@ -187,12 +193,11 @@ namespace MyAppTodo
             prompt.Controls.Add(priorityBox);
             prompt.Controls.Add(confirmation);
 
-            // Show the dialog
             if (prompt.ShowDialog() == DialogResult.OK)
             {
                 return new Todo
                 {
-                    Name = nameBox.Text,
+                    Nom = nameBox.Text,
                     StartDate = startDatePicker.Value,
                     EndDate = endDatePicker.Value,
                     Status = statusBox.SelectedItem.ToString(),
@@ -221,7 +226,7 @@ namespace MyAppTodo
             {
                 Width = 400,
                 Height = 400,
-                Text = "Modify Task",
+                Text = "Modifier Tâche",
                 StartPosition = FormStartPosition.CenterScreen,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 MaximizeBox = false,
@@ -230,24 +235,24 @@ namespace MyAppTodo
 
             const int spacing = 5;
 
-            Label nameLabel = CreateTransparentLabel("Task Name", 50, 20);
-            TextBox nameBox = new TextBox { Left = 50, Top = nameLabel.Bottom + spacing, Width = 300, Text = tache.Name };
+            Label nameLabel = CreateTransparentLabel("Nom de la tâche", 50, 20);
+            TextBox nameBox = new TextBox { Left = 50, Top = nameLabel.Bottom + spacing, Width = 300, Text = tache.Nom };
 
-            Label startDateLabel = CreateTransparentLabel("Start Date", 50, nameBox.Bottom + spacing);
+            Label startDateLabel = CreateTransparentLabel("Date de début", 50, nameBox.Bottom + spacing);
             DateTimePicker startDatePicker = new DateTimePicker { Left = 50, Top = startDateLabel.Bottom + spacing, Width = 300, Value = tache.StartDate };
 
-            Label endDateLabel = CreateTransparentLabel("End Date", 50, startDatePicker.Bottom + spacing);
+            Label endDateLabel = CreateTransparentLabel("Date de fin", 50, startDatePicker.Bottom + spacing);
             DateTimePicker endDatePicker = new DateTimePicker { Left = 50, Top = endDateLabel.Bottom + spacing, Width = 300, Value = tache.EndDate };
 
-            Label statusLabel = CreateTransparentLabel("Status", 50, endDatePicker.Bottom + spacing);
+            Label statusLabel = CreateTransparentLabel("Statut", 50, endDatePicker.Bottom + spacing);
             ComboBox statusBox = new ComboBox { Left = 50, Top = statusLabel.Bottom + spacing, Width = 300 };
-            statusBox.Items.AddRange(new[] { "In Progress", "Completed", "Suspended" });
+            statusBox.Items.AddRange(new[] { "En cours", "Terminée", "Suspendue" });
             statusBox.SelectedItem = tache.Status;
 
-            Label priorityLabel = CreateTransparentLabel("Priority", 50, statusBox.Bottom + spacing);
+            Label priorityLabel = CreateTransparentLabel("Priorité", 50, statusBox.Bottom + spacing);
             NumericUpDown priorityBox = new NumericUpDown { Left = 50, Top = priorityLabel.Bottom + spacing, Width = 300, Value = tache.Priority, Minimum = 1, Maximum = 5 };
 
-            Button confirmation = new Button { Text = "Modify", Width = 100, Top = priorityBox.Bottom + spacing + 10, Enabled = false };
+            Button confirmation = new Button { Text = "Modifier", Width = 100, Top = priorityBox.Bottom + spacing + 10, Enabled = false };
             confirmation.Left = (prompt.ClientSize.Width - confirmation.Width) / 2;
 
             confirmation.Click += (sender, e) =>
@@ -278,7 +283,7 @@ namespace MyAppTodo
 
             if (prompt.ShowDialog() == DialogResult.OK)
             {
-                tache.Name = nameBox.Text;
+                tache.Nom = nameBox.Text;
                 tache.StartDate = startDatePicker.Value;
                 tache.EndDate = endDatePicker.Value;
                 tache.Status = statusBox.SelectedItem.ToString();
@@ -287,6 +292,11 @@ namespace MyAppTodo
             }
 
             return null;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

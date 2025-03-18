@@ -100,10 +100,7 @@
             resources.ApplyResources(searchButton, "searchButton");
             searchButton.Name = "searchButton";
             searchButton.UseVisualStyleBackColor = true;
-<<<<<<< HEAD
             searchButton.Click += SearchButton_Click;
-=======
->>>>>>> 1023f2c5db4adc178a50a92bc1a0e819b37783b9
             // 
             // searchBox
             // 
@@ -111,7 +108,6 @@
             searchBox.BackColor = Color.WhiteSmoke;
             searchBox.ForeColor = Color.Black;
             searchBox.Name = "searchBox";
-            searchBox.TextChanged += searchBox_TextChanged;
             // 
             // Modifier_btn
             // 
@@ -139,7 +135,6 @@
             panel1.Controls.Add(label1);
             panel1.ForeColor = SystemColors.ControlText;
             panel1.Name = "panel1";
-            panel1.Paint += panel1_Paint;
             // 
             // pictureBox1
             // 
@@ -170,11 +165,7 @@
             Controls.Add(TodoListView);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Form1";
-            Load += Form1_Load;
-<<<<<<< HEAD
             Click += SearchButton_Click;
-=======
->>>>>>> 1023f2c5db4adc178a50a92bc1a0e819b37783b9
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

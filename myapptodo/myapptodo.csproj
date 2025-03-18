@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
+
     <None Remove="nlog.config" />
   </ItemGroup>
 
@@ -21,9 +21,19 @@
 
   <ItemGroup>
     <PackageReference Include="NLog" Version="5.4.0" />
-=======
->>>>>>> 1023f2c5db4adc178a50a92bc1a0e819b37783b9
+    <PackageReference Include="NUnit" Version="4.3.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
+
     <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
+
+    <PackageReference Include="WixToolset.VisualStudio.wixext" Version="5.0.2" />
+
+    <PackageReference Include="xunit" Version="2.9.3" />
+
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

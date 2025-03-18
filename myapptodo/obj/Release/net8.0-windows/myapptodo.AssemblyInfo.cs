@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("myapptodo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+887a92b80a7fb7775b942b7c9e6ece673d54d253")]
 [assembly: System.Reflection.AssemblyProductAttribute("myapptodo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("myapptodo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
