@@ -38,6 +38,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.WindowsDesktop.App": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "NLog": {
               "target": "Package",
               "version": "[5.4.0, )"
@@ -45,6 +49,10 @@
             "System.Data.SQLite": {
               "target": "Package",
               "version": "[1.0.119, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             },
             "System.Resources.Extensions": {
               "target": "Package",
