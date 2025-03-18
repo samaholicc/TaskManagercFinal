@@ -203,7 +203,6 @@ C:\Users\dddd\Desktop\projects\TaskManagercFinal-master\myapptodo\obj\Debug\net8
 C:\Users\dddd\Desktop\projects\TaskManagercFinal-master\myapptodo\obj\Debug\net8.0-windows\myapptodo.AssemblyInfo.cs
 C:\Users\dddd\Desktop\projects\TaskManagercFinal-master\myapptodo\obj\Debug\net8.0-windows\myapptodo.csproj.CoreCompileInputs.cache
 C:\Users\dddd\Desktop\projects\TaskManagercFinal-master\myapptodo\obj\Debug\net8.0-windows\myapptodo.sourcelink.json
-C:\Users\dddd\Desktop\projects\TaskManagercFinal-master\myapptodo\obj\Debug\net8.0-windows\fr\myapptodo.resources.cs
 C:\Users\dddd\Desktop\projects\TaskManagercFinal-master\myapptodo\obj\Debug\net8.0-windows\fr\myapptodo.resources.dll
 C:\Users\dddd\Desktop\projects\TaskManagercFinal-master\myapptodo\obj\Debug\net8.0-windows\myapptodo.csproj.Up2Date
 C:\Users\dddd\Desktop\projects\TaskManagercFinal-master\myapptodo\obj\Debug\net8.0-windows\myapptodo.dll
@@ -211,3 +210,4 @@ C:\Users\dddd\Desktop\projects\TaskManagercFinal-master\myapptodo\obj\Debug\net8
 C:\Users\dddd\Desktop\projects\TaskManagercFinal-master\myapptodo\obj\Debug\net8.0-windows\myapptodo.pdb
 C:\Users\dddd\Desktop\projects\TaskManagercFinal-master\myapptodo\obj\Debug\net8.0-windows\myapptodo.genruntimeconfig.cache
 C:\Users\dddd\Desktop\projects\TaskManagercFinal-master\myapptodo\obj\Debug\net8.0-windows\ref\myapptodo.dll
+C:\Users\dddd\Desktop\projects\TaskManagercFinal-master\myapptodo\obj\Debug\net8.0-windows\fr\myapptodo.resources.cs

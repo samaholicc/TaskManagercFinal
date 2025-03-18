@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # MyAppTodo
 
 MyAppTodo is a simple and efficient to-do list application that helps users manage their tasks effectively. The application provides a user-friendly interface for creating, updating, and deleting tasks, and allows setting priorities and deadlines for each task.
@@ -68,4 +68,3 @@ MyAppTodo is a simple and efficient to-do list application that helps users mana
 ![Add Task Dialog](myapptodo/images/add_task_dialog.png)
 
  
->>>>>>> 1023f2c5db4adc178a50a92bc1a0e819b37783b9

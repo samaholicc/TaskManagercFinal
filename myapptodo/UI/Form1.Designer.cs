@@ -165,6 +165,7 @@
             Controls.Add(TodoListView);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Form1";
+            Load += Form1_Load;
             Click += SearchButton_Click;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

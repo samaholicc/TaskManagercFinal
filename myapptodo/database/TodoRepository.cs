@@ -89,22 +89,19 @@ public class TodoRepository
     /// Adds a new Todo item to the database.
     /// </summary>
     /// <param name="newTodo">The new Todo item to add.</param>
-    public void Add(Todo newTodo)
+    public void Add(Todo todo)
     {
         using (var connection = new SQLiteConnection(_connectionString))
         {
             connection.Open();
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = @"
-                    INSERT INTO Todo (Name, Date_debut, Date_fin, Statut, Priorite)
-                    VALUES ($name, $date_debut, $date_fin, $statut, $priorite);";
-
-                command.Parameters.AddWithValue("$name", newTodo.Nom); // Correction : Name
-                command.Parameters.AddWithValue("$date_debut", newTodo.StartDate.ToString("o"));
-                command.Parameters.AddWithValue("$date_fin", newTodo.EndDate.ToString("o"));
-                command.Parameters.AddWithValue("$statut", newTodo.Status);
-                command.Parameters.AddWithValue("$priorite", newTodo.Priority);
+                command.CommandText = "INSERT INTO Todo (Nom, StartDate, EndDate, Status, Priority) VALUES ($Nom, $StartDate, $EndDate, $Status, $Priority);";
+                command.Parameters.AddWithValue("$Nom", todo.Nom);
+                command.Parameters.AddWithValue("$StartDate", todo.StartDate);
+                command.Parameters.AddWithValue("$EndDate", todo.EndDate);
+                command.Parameters.AddWithValue("$Status", todo.Status);
+                command.Parameters.AddWithValue("$Priority", todo.Priority);
 
                 command.ExecuteNonQuery();
             }
@@ -138,6 +135,35 @@ public class TodoRepository
             }
         }
     }
+    public Todo GetById(int id)
+    {
+        using (var connection = new SQLiteConnection(_connectionString))
+        {
+            connection.Open();
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM Todo WHERE Id = $id";
+                command.Parameters.AddWithValue("$id", id);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new Todo
+                        {
+                            Id = reader.GetInt32(0),
+                            Nom = reader.GetString(1),
+                            StartDate = reader.GetDateTime(2),
+                            EndDate = reader.GetDateTime(3),
+                            Status = reader.GetString(4),
+                            Priority = reader.GetInt32(5)
+                        };
+                    }
+                }
+            }
+        }
+        return null; // If no Todo was found
+    }
 
     /// <summary>
     /// Deletes a Todo item from the database by its ID.
@@ -150,12 +176,20 @@ public class TodoRepository
             connection.Open();
             using (var command = connection.CreateCommand())
             {
+                // Attempt to delete the Todo
                 command.CommandText = "DELETE FROM Todo WHERE Id = $id;";
                 command.Parameters.AddWithValue("$id", id);
-                command.ExecuteNonQuery();
+                var rowsAffected = command.ExecuteNonQuery();
+
+                // Check if no rows were affected
+                if (rowsAffected == 0)
+                {
+                    throw new InvalidOperationException("Todo not found");
+                }
             }
         }
     }
+
 }
 
 /// <summary>
