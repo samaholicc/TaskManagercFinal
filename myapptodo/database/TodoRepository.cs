@@ -4,13 +4,11 @@ using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 
-
-
 public class TodoRepository
 {
     private readonly string _connectionString;
 
-    public TodoRepository(string connectionString = "Data Source=todos.db;Version=3;")
+    public TodoRepository(string connectionString = "Data Source=tasks.db;Version=3;")
     {
         _connectionString = connectionString;
         InitializeDatabase();
@@ -18,26 +16,24 @@ public class TodoRepository
 
     private void InitializeDatabase()
     {
-        if (!File.Exists("todos.db"))
+        if (!File.Exists("tasks.db"))
         {
-            SQLiteConnection.CreateFile("todos.db");
+            SQLiteConnection.CreateFile("tasks.db");
         }
 
         using (var connection = new SQLiteConnection(_connectionString))
         {
             connection.Open();
-
-            // Create the table if it does not exist
             using (var command = connection.CreateCommand())
             {
                 command.CommandText = @"
-                CREATE TABLE IF NOT EXISTS Todo (
+                CREATE TABLE IF NOT EXISTS Todos (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Name TEXT NOT NULL,
-                    Date_Debut TEXT NOT NULL,
-                    Date_Fin TEXT NOT NULL,
-                    Statut TEXT NOT NULL,
-                    Priorite INTEGER NOT NULL
+                    StartDate TEXT NOT NULL,
+                    EndDate TEXT NOT NULL,
+                    Status TEXT NOT NULL,
+                    Priority INTEGER NOT NULL
                 );";
                 command.ExecuteNonQuery();
             }
@@ -47,33 +43,29 @@ public class TodoRepository
     public List<Todo> GetAll()
     {
         var todos = new List<Todo>();
-
         using (var connection = new SQLiteConnection(_connectionString))
         {
             connection.Open();
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "SELECT * FROM Todo;";
-
+                command.CommandText = "SELECT * FROM Todos;";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        var todo = new Todo
+                        todos.Add(new Todo
                         {
                             Id = reader.GetInt32(0),
                             Name = reader.GetString(1),
-                            Date_Debut = DateTime.Parse(reader.GetString(2)),
-                            Date_Fin = DateTime.Parse(reader.GetString(3)),
-                            Statut = reader.GetString(4),
-                            Priorite = reader.GetInt32(5)
-                        };
-                        todos.Add(todo);
+                            StartDate = DateTime.Parse(reader.GetString(2)),
+                            EndDate = DateTime.Parse(reader.GetString(3)),
+                            Status = reader.GetString(4),
+                            Priority = reader.GetInt32(5)
+                        });
                     }
                 }
             }
         }
-
         return todos;
     }
 
@@ -84,14 +76,13 @@ public class TodoRepository
             connection.Open();
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "INSERT INTO Todo (Name, Date_Debut, Date_fin, Statut, Priorite) VALUES ($Nom, $StartDate, $EndDate, $Status, $Priority);";
+                command.CommandText = "INSERT INTO Todos (Name, StartDate, EndDate, Status, Priority) VALUES ($Nom, $StartDate, $EndDate, $Status, $Priority); SELECT last_insert_rowid();";
                 command.Parameters.AddWithValue("$Nom", todo.Name);
-                command.Parameters.AddWithValue("$StartDate", todo.Date_Debut.ToString("o"));
-                command.Parameters.AddWithValue("$EndDate", todo.Date_Fin.ToString("o"));
-                command.Parameters.AddWithValue("$Status", todo.Statut);
-                command.Parameters.AddWithValue("$Priority", todo.Priorite);
-
-                command.ExecuteNonQuery();
+                command.Parameters.AddWithValue("$StartDate", todo.StartDate.ToString("o"));
+                command.Parameters.AddWithValue("$EndDate", todo.EndDate.ToString("o"));
+                command.Parameters.AddWithValue("$Status", todo.Status);
+                command.Parameters.AddWithValue("$Priority", todo.Priority);
+                todo.Id = Convert.ToInt32(command.ExecuteScalar());
             }
         }
     }
@@ -104,30 +95,19 @@ public class TodoRepository
             using (var command = connection.CreateCommand())
             {
                 command.CommandText = @"
-                UPDATE Todo
-                SET Name = $Nom, Date_Debut = $DateDebut, Date_Fin = $EndDate, Statut = $Status, Priorite = $Priority
+                UPDATE Todos
+                SET Name = $Nom, StartDate = $StartDate, EndDate = $EndDate, Status = $Status, Priority = $Priority
                 WHERE Id = $Id;";
-
                 command.Parameters.AddWithValue("$Id", updatedTodo.Id);
                 command.Parameters.AddWithValue("$Nom", updatedTodo.Name);
-                command.Parameters.AddWithValue("$DateDebut", updatedTodo.Date_Debut.ToString("o"));
-                command.Parameters.AddWithValue("$EndDate", updatedTodo.Date_Fin.ToString("o"));
-                command.Parameters.AddWithValue("$Status", updatedTodo.Statut);
-                command.Parameters.AddWithValue("$Priority", updatedTodo.Priorite);
-
-                try
-                {
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error updating Todo: {ex.Message}");
-                    throw;
-                }
+                command.Parameters.AddWithValue("$StartDate", updatedTodo.StartDate.ToString("o"));
+                command.Parameters.AddWithValue("$EndDate", updatedTodo.EndDate.ToString("o"));
+                command.Parameters.AddWithValue("$Status", updatedTodo.Status);
+                command.Parameters.AddWithValue("$Priority", updatedTodo.Priority);
+                command.ExecuteNonQuery();
             }
         }
     }
-
 
     public Todo GetById(int id)
     {
@@ -136,9 +116,8 @@ public class TodoRepository
             connection.Open();
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "SELECT * FROM Todo WHERE Id = $id";
+                command.CommandText = "SELECT * FROM Todos WHERE Id = $id";
                 command.Parameters.AddWithValue("$id", id);
-
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
@@ -147,10 +126,10 @@ public class TodoRepository
                         {
                             Id = reader.GetInt32(0),
                             Name = reader.GetString(1),
-                            Date_Debut = reader.GetDateTime(2),
-                            Date_Fin = reader.GetDateTime(3),
-                            Statut = reader.GetString(4),
-                            Priorite = reader.GetInt32(5)
+                            StartDate = DateTime.Parse(reader.GetString(2)),
+                            EndDate = DateTime.Parse(reader.GetString(3)),
+                            Status = reader.GetString(4),
+                            Priority = reader.GetInt32(5)
                         };
                     }
                 }
@@ -166,26 +145,10 @@ public class TodoRepository
             connection.Open();
             using (var command = connection.CreateCommand())
             {
-                Console.WriteLine($"Attempting to delete Todo with ID: {id}");
-
-                // Check if the Todo exists before trying to delete it
-                var existsCommand = connection.CreateCommand();
-                existsCommand.CommandText = "SELECT COUNT(*) FROM Todo WHERE Id = $id";
-                existsCommand.Parameters.AddWithValue("$id", id);
-                var count = Convert.ToInt32(existsCommand.ExecuteScalar());
-
-                if (count == 0)
-                {
-                    throw new InvalidOperationException("Todo not found");
-                }
-
-                // Proceed with deletion
-                command.CommandText = "DELETE FROM Todo WHERE Id = $id;";
+                command.CommandText = "DELETE FROM Todos WHERE Id = $id;";
                 command.Parameters.AddWithValue("$id", id);
                 command.ExecuteNonQuery();
             }
         }
     }
-
-
 }
