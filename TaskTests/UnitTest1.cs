@@ -8,7 +8,8 @@ public class TodoRepositoryTests
 
     public TodoRepositoryTests()
     {
-        _repository = new TodoRepository(); // Create a new instance of the repository
+        new MyAppTodo.Database.Database().InitializeDatabase(); // Initialize database with correct schema
+        _repository = new TodoRepository();
         CleanupDatabase(); // Clean the database before each test
     }
 
