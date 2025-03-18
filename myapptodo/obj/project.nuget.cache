@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "hndB6ntqZtm3BH7UIqhiUny6LdFSPX6FseevYwt2JbvpbtQ8XzbLUVji0WfRu31Pry7my/Bv8Ung4wtZm6nmrg==",
+  "dgSpecHash": "g9gJqsdM2e+2pO9NsXIj5ii7apHjsj9ZxCUFJOv1/BNemFzehkMljYJifoLwmidr89iI9PfnUKSmM3e3OS/o9Q==",
   "success": true,
   "projectFilePath": "/home/runner/workspace/myapptodo/myapptodo.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,7 @@
     "/home/runner/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.netcore.platforms/3.1.0/microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.win32.registry/4.7.0/microsoft.win32.registry.4.7.0.nupkg.sha512",
-    "/home/runner/.nuget/packages/microsoft.win32.systemevents/4.7.0/microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.win32.systemevents/7.0.0/microsoft.win32.systemevents.7.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/nlog/5.4.0/nlog.5.4.0.nupkg.sha512",
     "/home/runner/.nuget/packages/runtime.native.system.data.sqlclient.sni/4.7.0/runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/runtime.win-arm64.runtime.native.system.data.sqlclient.sni/4.4.0/runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -22,13 +22,14 @@
     "/home/runner/.nuget/packages/system.data.sqlite/1.0.119/system.data.sqlite.1.0.119.nupkg.sha512",
     "/home/runner/.nuget/packages/system.data.sqlite.core/1.0.119/system.data.sqlite.core.1.0.119.nupkg.sha512",
     "/home/runner/.nuget/packages/system.data.sqlite.ef6/1.0.119/system.data.sqlite.ef6.1.0.119.nupkg.sha512",
-    "/home/runner/.nuget/packages/system.drawing.common/4.7.0/system.drawing.common.4.7.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/system.drawing.common/7.0.0/system.drawing.common.7.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.resources.extensions/7.0.0/system.resources.extensions.7.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.security.accesscontrol/4.7.0/system.security.accesscontrol.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.security.cryptography.protecteddata/4.7.0/system.security.cryptography.protecteddata.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.security.permissions/4.7.0/system.security.permissions.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.security.principal.windows/4.7.0/system.security.principal.windows.4.7.0.nupkg.sha512",
-    "/home/runner/.nuget/packages/system.windows.extensions/4.7.0/system.windows.extensions.4.7.0.nupkg.sha512"
+    "/home/runner/.nuget/packages/system.windows.extensions/4.7.0/system.windows.extensions.4.7.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.windowsdesktop.app.ref/7.0.20/microsoft.windowsdesktop.app.ref.7.0.20.nupkg.sha512"
   ],
   "logs": []
 }
