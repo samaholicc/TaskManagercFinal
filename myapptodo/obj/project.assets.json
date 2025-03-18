@@ -299,6 +299,22 @@
           }
         }
       },
+      "System.Resources.Extensions/7.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/System.Resources.Extensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/System.Resources.Extensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
       "System.Security.AccessControl/4.7.0": {
         "type": "package",
         "dependencies": {
@@ -1052,6 +1068,33 @@
         "version.txt"
       ]
     },
+    "System.Resources.Extensions/7.0.0": {
+      "sha512": "65ufm9ABXvxRkQ//hMcUDrQXbGWkC7z0WWZAvHlQ6Qv+JmrIwHH1lmX8aXlNlXpIrT9KxDpuZPqJTVqqwzMD8Q==",
+      "type": "package",
+      "path": "system.resources.extensions/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Resources.Extensions.targets",
+        "buildTransitive/net462/System.Resources.Extensions.targets",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Resources.Extensions.targets",
+        "lib/net462/System.Resources.Extensions.dll",
+        "lib/net462/System.Resources.Extensions.xml",
+        "lib/net6.0/System.Resources.Extensions.dll",
+        "lib/net6.0/System.Resources.Extensions.xml",
+        "lib/net7.0/System.Resources.Extensions.dll",
+        "lib/net7.0/System.Resources.Extensions.xml",
+        "lib/netstandard2.0/System.Resources.Extensions.dll",
+        "lib/netstandard2.0/System.Resources.Extensions.xml",
+        "system.resources.extensions.7.0.0.nupkg.sha512",
+        "system.resources.extensions.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "System.Security.AccessControl/4.7.0": {
       "sha512": "JECvTt5aFF3WT3gHpfofL2MNNP6v84sxtXxpqhLBCcDRzqsPBmHhQ6shv4DwwN2tRlzsUxtb3G9M3763rbXKDg==",
       "type": "package",
@@ -1249,7 +1292,8 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "NLog >= 5.4.0",
-      "System.Data.SQLite >= 1.0.119"
+      "System.Data.SQLite >= 1.0.119",
+      "System.Resources.Extensions >= 7.0.0"
     ]
   },
   "packageFolders": {
@@ -1296,6 +1340,10 @@
           "System.Data.SQLite": {
             "target": "Package",
             "version": "[1.0.119, )"
+          },
+          "System.Resources.Extensions": {
+            "target": "Package",
+            "version": "[7.0.0, )"
           }
         },
         "imports": [

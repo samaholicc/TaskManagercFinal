@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "DgW4jtUBXvLmRu/WG3wNxD7LZMaF2Q7bVOmMx8wViEl9u/PvmV6kv75JNnAy12h/rZOpSI0KdRlsugvS/SjkHQ==",
+  "dgSpecHash": "hndB6ntqZtm3BH7UIqhiUny6LdFSPX6FseevYwt2JbvpbtQ8XzbLUVji0WfRu31Pry7my/Bv8Ung4wtZm6nmrg==",
   "success": true,
   "projectFilePath": "/home/runner/workspace/myapptodo/myapptodo.csproj",
   "expectedPackageFiles": [
@@ -23,6 +23,7 @@
     "/home/runner/.nuget/packages/system.data.sqlite.core/1.0.119/system.data.sqlite.core.1.0.119.nupkg.sha512",
     "/home/runner/.nuget/packages/system.data.sqlite.ef6/1.0.119/system.data.sqlite.ef6.1.0.119.nupkg.sha512",
     "/home/runner/.nuget/packages/system.drawing.common/4.7.0/system.drawing.common.4.7.0.nupkg.sha512",
+    "/home/runner/.nuget/packages/system.resources.extensions/7.0.0/system.resources.extensions.7.0.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.security.accesscontrol/4.7.0/system.security.accesscontrol.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.security.cryptography.protecteddata/4.7.0/system.security.cryptography.protecteddata.4.7.0.nupkg.sha512",
     "/home/runner/.nuget/packages/system.security.permissions/4.7.0/system.security.permissions.4.7.0.nupkg.sha512",
